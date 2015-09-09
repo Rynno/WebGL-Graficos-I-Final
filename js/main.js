@@ -66,18 +66,13 @@ function inicializar(){
 
 	gl.canvas.addEventListener("mousedown", function(event){
 	console.log("click");
-			var attachments = [
-			  { format: gl.RGBA, type: gl.UNSIGNED_BYTE, min: gl.LINEAR, wrap: gl.CLAMP_TO_EDGE },
-			  { format: gl.DEPTH_STENCIL, },
-			];
-			var fbi = twgl.createFramebufferInfo(gl, attachments)
 			
 			var pixels = new Uint8Array(4);			
 			var x = event.clientX;
 			var y = event.clientY;
 			console.log(x + ', ' + y);
 			gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
-		console.log(fbi);
+		
 		console.log(pixels);
     });
 	
