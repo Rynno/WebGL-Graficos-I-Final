@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/StyleSheet.css"/>
     <link rel="stylesheet" href="slider/css/slider.css">
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/Script.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/twgl-full.min.js"></script>
     <script type="text/javascript" src="js/chroma.min.js"></script> 
@@ -96,46 +96,48 @@
     </canvas>
 
     <section id="operaciones">
-      <h1>Operaciones</h1>
-            <div>
-                Seleccione una operaci&oacute;n a realizar:<br>
-                <select name="operation">
-                    <option value="t">Trasladar</option>
-                    <option value="r">Rotar</option>
-                    <option value="e">Escalar</option>
-                </select> 
-                <br><br>
-            </div>
-            <div>
-                Seleccione una figura:<br>
-                <select name="figura">
-                    <option value="2">Cubo</option>
-                    <option value="3">Esfera</option>
-                    <option value="4">Toroide</option>
-					<option value="5">Piramide</option>
-                </select> 
-                <br><br>
-            </div>
-            <div>
-                Ejes:<br>
-                <span>X</span>
-                <input id="sliderX" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/><br>
-                <span>Y</span>
-                <input id="sliderY" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/><br>
-                <span>Z</span>
-                <input id="sliderZ" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/><br>
-				<br>				
-				<input type="submit" onClick="JavaScript:rotarsobrecilindro()" value="Animacion">
-				<input type="submit" onClick="JavaScript:deteneranimacion()" value="Stop Animacion">
-				<br>				
-				<h3>
-				Movimiento de la camara
-				
-				<p>TECLAS DIRECCIONALES</p>
-            </div>
+        <h1>Operaciones</h1>
+        <div>
+            Seleccione una operaci&oacute;n a realizar:<br>
+            <select name="operation">
+                <option value="trasladar">Trasladar</option>
+                <option value="rotar">Rotar</option>
+                <option value="escalar">Escalar</option>
+            </select> 
+        </div>
+        <div>
+            Seleccione una figura:<br>
+            <select name="figura">
+                <option value="2">Cubo</option>
+                <option value="3">Esfera</option>
+                <option value="4">Toroide</option>
+    			<option value="5">Piramide</option>
+            </select> 
+            <br><br>            
+        </div>
+        <div>
+            Ejes:<br>
+            <span>X</span>
+            <input id="sliderX" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/>
+            <span>Y</span>
+            <input id="sliderY" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/>
+            <span>Z</span>
+            <input id="sliderZ" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/>
+        </div>
+        <h1>Animaci&oacute;n</h1>
+        <div>
+            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" name="animacion" checked="false" onchange="JavaScript:animate(this)">
+            <label for="cmn-toggle-1"></label>
+        </div>
+        <h1>C&aacute;mara</h1>
+        <div>
+            Zoom in: Tecla direccional Arriba<br>
+            Zoom out: Tecla direccional Abajo <br>
+            Izquierda: Tecla direccional Izquierda <br>
+            Derecha: Tecla direccional Derecha 
+        </div>
     </section>
-
-    <footer>
+     <footer>
         <div><small>ESPOL | Charlie Medina - Ronny Mor&aacute;n | 2015</small></div>
     </footer>  
   </body>
