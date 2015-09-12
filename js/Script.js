@@ -1,11 +1,24 @@
 var gl, m4, lightWorldPosition, lightColor, camera;
-var viewProjection, shapes;
+var viewProjection, shapes;;
 var programInfo, baseHue, textura, objects = [], drawObjects = [];
 var requestId;
 var positions=[], pendingTransformation = [];
 var delanteatras=-28, izquidere=0;
-var color = new Uint8Array(4);
+var izquidere=0;
 var animacion=false;
+var encendido;
+var chess = "textura/chess.jpg";
+var beach = "textura/beach.jpg";
+var cubo = "textura/cubo1.jpg";
+var moon = "textura/moon.gif";
+var text11 = "textura/texturez_4496.jpg";
+var pyramid = "textura/pyramid2.jpg";
+var madera = "textura/madera.jpg";
+var tigre = "textura/piel2.jpg";
+var pelo = "textura/pelo.jpg";
+var metal = "textura/metal.JPG";
+var cesped = "textura/cesped.jpg";
+var lampara = "textura/lampara.jpg";
 
 window.addEventListener("load", inicializar, false);
 
@@ -42,18 +55,18 @@ function inicializar(){
     m4 = twgl.m4;
     gl = twgl.getWebGLContext(document.getElementById("c"));
     programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
-	
+  
 
-  	gl.canvas.addEventListener("mousedown", function(event){
+    gl.canvas.addEventListener("mousedown", function(event){
       console.log("click");
-      var pixels = new Uint8Array(4);			
+      var pixels = new Uint8Array(4);     
       var x = event.clientX;
       var y = event.clientY;
       console.log(x + ', ' + y);
       gl.readPixels(x, y, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
       console.log(pixels);
     });
-	
+  
     document.addEventListener('keydown', function(event) {
         //arriba
         if(event.keyCode === 38) {
@@ -77,11 +90,12 @@ function inicializar(){
 
     shapes = [
       twgl.primitives.createPlaneBufferInfo(gl, 18, 25, 10, 10), //width, height, subdivision
-      twgl.primitives.createCylinderBufferInfo(gl, 0.5, 9, 24, 2),
+      twgl.primitives.createCylinderBufferInfo(gl, 0.5, 10, 24, 2),
       twgl.primitives.createCubeBufferInfo(gl,3),
       twgl.primitives.createSphereBufferInfo(gl, 2, 24, 32),
       twgl.primitives.createTorusBufferInfo(gl, 1.5, 0.5, 24, 12),
       twgl.primitives.createTruncatedConeBufferInfo(gl, 2, 0, 4, 4, 1),
+      twgl.primitives.createTruncatedConeBufferInfo(gl, 0.4, 0, 0.8, 24, 1),
     ];
 
     lightWorldPosition = [1, 8, -10];
@@ -101,6 +115,7 @@ function inicializar(){
     positions[3]=[6,2,-6];//esfera
     positions[4]=[-3,1,-7];//toroide
     positions[5]=[-6,2,6];//piramide
+    positions[6]=[1, 9, -10];//FOCO 
 
 
     //0=plano, 1=tubo, 2=cubo, 3=esfera, 4=toroide, 5=piramide
@@ -110,7 +125,16 @@ function inicializar(){
     setTexturaFigura(3);
     setTexturaFigura(4);
     setTexturaFigura(5);
+    setTexturaFigura(6);
     requestAnimationFrame(render);
+
+    var deltas=-0.12;
+  
+    var matd = m4.rotationZ(deltas);    
+    setTransformacion(6,matd);
+    
+    var matX = m4.rotationX(deltas);  
+    setTransformacion(6,matX);
 }
 
 function getOperacionX(value){
@@ -160,60 +184,72 @@ function getOperacionZ(value){
     };
     return figura;
 }
-
+    
 function setTransformacion(i, mat){
     pendingTransformation[i] = m4.multiply(pendingTransformation[i] , mat );
 }
-      
+
 function getFigura(){
     figura=$('select[name="figura"]').val()
     return figura;
 }
 
+function getFiguraTextura(){
+    figura=$('select[name="figura_text"]').val()
+    return figura;
+}
+
 function rand(min, max) {
-    return min + Math.random() * (max - min);
+  return min + Math.random() * (max - min);
 }
 
 function setTexturaFigura(i){
 
-  initial_position=positions[i];
+  initial_position=positions[i];//esfera
 
   if (i==0){
-      textura = twgl.createTexture(gl, {
+    textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
-      src: "textura/chess.jpg",
+      src: chess,
     });  
   } else if (i==1) {
-      textura = twgl.createTexture(gl, {
+    textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
-      src: "textura/beach.jpg",
+      src: beach,
     }); 
   } else if (i==2) {
-      textura = twgl.createTexture(gl, {
+    textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
-      src: "textura/cubo1.jpg",
+      src: cubo,
     }); 
   } else if (i==3) {
-      textura = twgl.createTexture(gl, {
+    textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
-      src: "textura/moon.gif",
+      src: moon,
     }); 
   } else if (i==4) {
-      textura = twgl.createTexture(gl, {
+    textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
-      src: "textura/texturez_4496.jpg",
+      src: text11,
     }); 
   }
   else if (i==5) {
-      textura = twgl.createTexture(gl, {
+    textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
-      src: "textura/pyramid1.jpg",
+      src: pyramid,
+    }); 
+  }
+  else if (i==6) {
+    textura = twgl.createTexture(gl, {
+      min: gl.NEAREST,
+      mag: gl.NEAREST,
+      src: lampara,
     }); 
   }
   
@@ -242,37 +278,39 @@ function setTexturaFigura(i){
 }
 
 function render(time) {
-    gl.canvas.width = window.innerWidth/1.5;
-    gl.canvas.height = window.innerHeight/1.5;
+  gl.canvas.width = window.innerWidth/1.5;
+  gl.canvas.height = window.innerHeight/1.5;
 
-    time *= 0.001;
-    twgl.resizeCanvasToDisplaySize(gl.canvas);
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+  time *= 0.001;
+  twgl.resizeCanvasToDisplaySize(gl.canvas);
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-    gl.enable(gl.DEPTH_TEST);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  gl.enable(gl.DEPTH_TEST);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    var projection = m4.perspective(30 * Math.PI / 180, gl.canvas.clientWidth / gl.canvas.clientHeight, 0.5, 100);
-    //,,delante atras
-    var eye = [];
-      eye[0] = -1;
-      eye[1] = 4;
-      eye[2] = delanteatras;
-    var target = [izquidere, 4, 0];
-    var up = [0, 1, 0];
+  var projection = m4.perspective(30 * Math.PI / 180, gl.canvas.clientWidth / gl.canvas.clientHeight, 0.5, 100);
+  //,,delante atras
+  var eye = [];
+	  eye[0] = -1;
+	  eye[1] = 4;
+	  eye[2] = delanteatras;
 
-    m4.lookAt(eye, target, up, camera);
-    m4.inverse(camera, view);
-    m4.multiply(view, projection, viewProjection);
-    drawFigure(time, 0);
-    drawFigure(time, 1);
-    drawFigure(time, 2);
-    drawFigure(time, 3);
-    drawFigure(time, 4);
-    drawFigure(time, 5);
-    twgl.drawObjectList(gl, drawObjects);
+  var target = [izquidere, 4, 0];
+  var up = [0, 1, 0];
 
-    requestId= requestAnimationFrame(render);
+  m4.lookAt(eye, target, up, camera);
+  m4.inverse(camera, view);
+  m4.multiply(view, projection, viewProjection);
+  drawFigure(time, 0);
+  drawFigure(time, 1);
+  drawFigure(time, 2);
+  drawFigure(time, 3);
+  drawFigure(time, 4);
+  drawFigure(time, 5);
+  drawFigure(time, 6);
+  twgl.drawObjectList(gl, drawObjects);
+
+  requestId= requestAnimationFrame(render);
 }
 
 function drawFigure(time,i){
@@ -294,6 +332,24 @@ function drawFigure(time,i){
     m4.multiply(uni.u_world, viewProjection, uni.u_worldViewProjection);
 }
 
+function hacerVisible(elemento) {
+    var i;
+    var seccion;
+    var seccionVisible;
+
+    secciones = document.getElementsByTagName("section");
+    seccionVisible = document.getElementById(elemento.getAttribute("data-seccion"));
+
+    for (i = 0; i < secciones.length; i++) {
+        seccion = secciones[i];
+        if (seccion != seccionVisible) {
+                seccion.setAttribute("class", "ocultar");
+        } else {
+            seccion.setAttribute("class", "mostrar");
+        }
+    }
+}
+
 function animate(element){
   if(element.checked){
     starAnimacion();    
@@ -305,7 +361,7 @@ function animate(element){
 function starAnimacion(){
     var delta=0.01;
     animacion=true; 
-    var mat = m4.rotationY(delta);	
+    var mat = m4.rotationY(delta);  
     window.setInterval(function () {
         if(animacion==true){
             setTransformacion(2,mat);
@@ -318,4 +374,150 @@ function starAnimacion(){
 
 function stopAnimacion (){
     animacion=false;
+}
+
+var ind;
+function cambiartextura(indicefigura) {
+
+  if(indicefigura==1){ 		
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= beach;	
+	}if (ind==3){
+		moon= beach;	
+	}if (ind==4){
+		text11= beach;	
+	}if (ind==5){
+		pyramid= beach;	
+	}    
+    
+  }  
+  
+  if(indicefigura==2){	
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= madera;	
+	}if (ind==3){
+		moon= madera;	
+	}if (ind==4){
+		text11= madera;	
+	}if (ind==5){
+		pyramid= madera;	
+	}    
+    
+  }
+  if(indicefigura==3){ 
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= moon;	
+	}if (ind==3){
+		moon= moon;	
+	}if (ind==4){
+		text11= moon;	
+	}if (ind==5){
+		pyramid= moon;	
+	}    
+    
+  }
+  if(indicefigura==4){ 	
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= text11;	
+	}if (ind==3){
+		moon= text11;	
+	}if (ind==4){
+		text11= text11;	
+	}if (ind==5){
+		pyramid= text11;	
+	}    
+    
+  } 
+  if(indicefigura==5){ 	
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= tigre;	
+	}if (ind==3){
+		moon= tigre;	
+	}if (ind==4){
+		text11= tigre;	
+	}if (ind==5){
+		pyramid= tigre;	
+	}    
+    
+  }
+  if(indicefigura==6){ 	
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= cesped;	
+	}if (ind==3){
+		moon= cesped;	
+	}if (ind==4){
+		text11= cesped;	
+	}if (ind==5){
+		pyramid= cesped;	
+	}    
+    
+  }
+  if(indicefigura==7){ 	
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= metal;	
+	}if (ind==3){
+		moon= metal;	
+	}if (ind==4){
+		text11= metal;	
+	}if (ind==5){
+		pyramid= metal;	
+	}    
+    
+  }
+  if(indicefigura==8){ 	
+	ind = getFiguraTextura();	
+	if (ind==2){
+		cubo= pelo;	
+	}if (ind==3){
+		moon= pelo;	
+	}if (ind==4){
+		text11= pelo;	
+	}if (ind==5){
+		pyramid= pelo;	
+	}    
+    
+  }
+   setTexturaFigura(ind);  
+   $(".modal-box, .modal-overlay").fadeOut(500, function() {
+			$(".modal-overlay").remove();
+		});
+	beach = "textura/beach.jpg";
+	cubo = "textura/cubo1.jpg";
+	moon = "textura/moon.gif";
+	text11 = "textura/texturez_4496.jpg";
+	pyramid = "textura/pyramid2.jpg";
+	madera = "textura/madera.jpg";
+	tigre = "textura/piel2.jpg";
+	pelo = "textura/pelo.jpg";
+	metal = "textura/metal.JPG";
+	cesped = "textura/cesped.jpg";
+}
+
+
+
+function apagar(){
+
+if(lightColor==encendido){
+
+alert("apagando "+lightColor);
+alert(encendido);
+
+lightColor = [0, 0, 0, 1];
+}
+else{
+lightColor=[1, 1, 1, 1];
+
+alert("encendido "+lightColor);
+alert(encendido);
+}
+
+
+
 }
