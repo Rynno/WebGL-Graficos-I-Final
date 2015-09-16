@@ -3,7 +3,7 @@
 
 ![alt tag](https://github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif?raw=true)
 
-[![Demo CountPages alpha](https://github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif?raw=true)]
+
 
 ### OPERACIONES:
 
