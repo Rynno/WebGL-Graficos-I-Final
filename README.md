@@ -1,3 +1,46 @@
-# WebGL 
-Gráficos por computadora I
-2015-1
+# WebGL - Gráficos por computadora I
+
+
+![alt tag](https://raw.github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif)
+
+[![Demo CountPages alpha](https://raw.github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif)]
+
+### Operaciones:
+
+  - ROTACIÓN
+  - TRASLACIÓN 
+  - ESCALAMIENTO
+
+### Cámara:
+
+    Zoom in
+    Zoom out
+
+    Izquierda
+    Derecha
+
+
+
+
+
+### TEXTURAS
+*   IMÁGENES 
+*   APARIENCIA DE SÓLIDO
+
+
+### ILUMINACIÓN
+
+ ```sh
+ON - OFF de luz
+```
+
+
+### ANIMACIÓN
+
+Rotar todos los objetos alrededor del cilindro.
+
+
+
+
+
+

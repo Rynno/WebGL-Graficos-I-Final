@@ -1,21 +1,74 @@
 <!DOCTYPE html>
+
+<!-- 
+  Proyecto Final de la materia Gráficos por Computadora I 
+   Utilizando WebGl.
+  ESPOL - Primer término 2015.
+ 	Grupo # 2 
+	- Charlie Medina
+	- Ronny Morán
+ --> 
+ 
 <html>
   <head>
+  <meta charset='utf-8'>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <title>Proyecto Final - Gr&aacute;ficos I</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/StyleSheet.css"/>
     <link rel="stylesheet" href="slider/css/slider.css">
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+	<link href="css/popup.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/Script.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script> 
+	
     <script type="text/javascript" src="js/twgl-full.min.js"></script>
     <script type="text/javascript" src="js/chroma.min.js"></script> 
     <script type="text/javascript" src="slider/js/bootstrap-slider.js"></script>
+	<script src="js/menu.js"></script>
 
     <style type="text/css">
       #ex1Slider .slider-selection {
-          background: #BABABA;
+          background: #8CE196;
       }
     </style>
+
+	
+	
+<script>
+$(function(){
+
+var appendthis =  ("<div class='modal-overlay js-modal-close'></div>");
+
+	$('a[data-modal-id]').click(function(e) {
+		e.preventDefault();
+    $("body").append(appendthis);
+    $(".modal-overlay").fadeTo(500, 0.7);
+    //$(".js-modalbox").fadeIn(500);
+		var modalBox = $(this).attr('data-modal-id');
+		$('#'+modalBox).fadeIn($(this).data());
+	});  
+  
+  
+$(".js-modal-close, .modal-overlay").click(function() {
+    $(".modal-box, .modal-overlay").fadeOut(500, function() {
+        $(".modal-overlay").remove();
+    });
+ 
+});
+ 
+$(window).resize(function() {
+    $(".modal-box").css({
+        top: ($(window).height() - $(".modal-box").outerHeight()) / 2,
+        left: ($(window).width() - $(".modal-box").outerWidth()) / 2
+    });
+});
+ 
+$(window).resize();
+ 
+});
+</script>
 
     <script id="vs" type="notjs">
         uniform mat4 u_worldViewProjection;
@@ -84,27 +137,39 @@
   </head>
 
   <body>
+  
+	
     <header>
         <p id="title">Proyecto Final</p>
         <p id="materia">Gr&aacute;ficos por Computadora I</p>
     </header>
 
-    <nav id="menu"></nav>  
+   
+	
+	<div id="cssmenu"  >
+		<ul style="text-align: center;">	
+		
+		   <li ><a id="mOperacones" href="#" onclick="javascript:hacerVisible(this);" data-seccion="sec_operaciones">Operaciones</a></li>
+		   <li><a id="mLuces" href="#" onclick="javascript:hacerVisible(this);" data-seccion="sec_luces">Luces y texturas</a></li>
+		   <li> <a id="mWrite" href="writeup.html" >Write-up</a></li>
+		</ul>
+	</div>
+	
 
     <canvas id="c">
         ¡Este navegador no soporta WebGL!
     </canvas>
 
-    <section id="operaciones">
+    <section id="sec_operaciones">
+	
       <h1>Operaciones</h1>
             <div>
                 Seleccione una operaci&oacute;n a realizar:<br>
                 <select name="operation">
-                    <option value="t">Trasladar</option>
-                    <option value="r">Rotar</option>
-                    <option value="e">Escalar</option>
-                </select> 
-                <br><br>
+                    <option value="trasladar">Trasladar</option>
+                    <option value="rotar">Rotar</option>
+                    <option value="escalar">Escalar</option>
+                </select>                 
             </div>
             <div>
                 Seleccione una figura:<br>
@@ -114,29 +179,124 @@
                     <option value="4">Toroide</option>
 					<option value="5">Piramide</option>
                 </select> 
-                <br><br>
+                <br>
             </div>
             <div>
                 Ejes:<br>
                 <span>X</span>
-                <input id="sliderX" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/><br>
-                <span>Y</span>
-                <input id="sliderY" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/><br>
-                <span>Z</span>
-                <input id="sliderZ" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/><br>
-				<br>				
-				<input type="submit" onClick="JavaScript:rotarsobrecilindro()" value="Animacion">
-				<input type="submit" onClick="JavaScript:deteneranimacion()" value="Stop Animacion">
-				<br>				
-				<h3>
-				Movimiento de la camara
-				
-				<p>TECLAS DIRECCIONALES</p>
+                    <input id="sliderX" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/>
+                    <span>Y</span>
+                    <input id="sliderY" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/>
+                    <span>Z</span>
+                    <input id="sliderZ" data-slider-id='ex1Slider' type="text" data-last="0" data-slider-min="-15" data-slider-max="10" data-slider-step="0.25" data-slider-value="1"/>
             </div>
+            <h1>Animaci&oacute;n</h1>
+            <div>
+                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" name="animacion" onchange="JavaScript:animated(this)">
+                <label for="cmn-toggle-1"></label>
+            </div>
+            <h1>C&aacute;mara</h1>
+			
+			<img src="textura/teclas.jpg" alt="Mountain View" style="width:280px;height:200px;">
+			
+            <!-- <div>
+                Zoom in: Tecla direccional Arriba<br>
+                Zoom out: Tecla direccional Abajo <br>
+                Izquierda: Tecla direccional Izquierda <br>
+                Derecha: Tecla direccional Derecha 
+            </div>   -->        
+            
     </section>
-
+    <section id="sec_luces" class="ocultar">
+        <h1>Luces</h1>
+        <br>
+        <div class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        <label class="onoffswitch-label" for="myonoffswitch">
+            <span class="onoffswitch-inner" onClick="JavaScript:apagar()"></span>
+            <span class="onoffswitch-switch"  ></span>
+        </label>
+        </div>
+        <h1>Texturas</h1>
+        <div>
+                Seleccione una figura:<br>
+                <select name="figura_text">
+                    <option value="2">Cubo</option>
+                    <option value="3">Esfera</option>
+                    <option value="4">Toroide</option>
+                    <option value="5">Piramide</option>
+                </select> 
+                <br><br>
+            </div>
+        <br>
+        <div>
+            <a class="js-open-modal btn" href="#" data-modal-id="popup2" id="popup_btn">Cambiar textura</a> 
+        </div>
+		<br>
+		<br>
+		<br>
+		<div>
+            <a class="js-open-modal btn" id="popup_btn" onclick="javascript:solido();">Cambiar a sólido</a> 
+        </div>
+        <br><br>
+    </section>
     <footer>
         <div><small>ESPOL | Charlie Medina - Ronny Mor&aacute;n | 2015</small></div>
     </footer>  
+	
+	
+	<div id="popup2" class="modal-box" style="top: 192px; left: 215px; display: none;">
+ 
+	<div id="header2"> <a href="#" class="js-modal-close close" style="color:#000">X</a>
+		<h3 style="padding-left:3em">Texturas</h3>
+	</div>	
+
+		<ul id="gallery">
+				<li>
+				<a onClick="JavaScript:cambiartextura(1)">
+				<img src="textura/beach1.jpg"><div>Textura 1</div></a>
+				</li>
+				
+				<li>
+				<a  onClick="JavaScript:cambiartextura(2)">
+				<img src="textura/madera1.jpg" ><div>Textura 2</div>
+				</a>
+				</li>
+				
+				<li>
+				<a onClick="JavaScript:cambiartextura(3)">
+				<img src="textura/moon1.gif"><div>Textura 3</div></a>
+				</li>
+				
+				<li>
+				<a onClick="JavaScript:cambiartextura(4)">
+				<img src="textura/texturez_44961.jpg"><div>Textura 4</div></a>
+				</li>
+				
+				<li>
+				<a onClick="JavaScript:cambiartextura(5)">
+				<img src="textura/piel21.jpg"><div>Textura 5</div></a>
+				</li>
+				<li>
+				<a onClick="JavaScript:cambiartextura(6)">
+				<img src="textura/cesped1.jpg"><div>Textura 6</div></a>
+				</li>
+				<li>
+				<a onClick="JavaScript:cambiartextura(7)">
+				<img src="textura/metal1.JPG"><div>Textura 7</div></a>
+				</li>
+				<li>
+				<a onClick="JavaScript:cambiartextura(8)">
+				<img src="textura/pelo1.jpg"><div>Textura 8</div></a>
+				</li>
+			  <!-- 	
+			  <footer> 
+			  <a href="#" class="btn btn-small js-modal-close">Close</a> 
+			  
+			  </footer> -->
+		</ul>
+		<br>
+		<br>
+</div>
   </body>
 </html>
