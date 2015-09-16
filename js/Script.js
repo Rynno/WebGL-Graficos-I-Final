@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Proyecto Final de la materia Gráficos por Computadora I 
    Utilizando WebGl.
@@ -7,6 +8,8 @@
 	- Ronny Morán
  */
  
+=======
+>>>>>>> origin/master
 var gl, m4, lightWorldPosition, lightColor, camera;
 var viewProjection, shapes;;
 var programInfo, baseHue, textura, objects = [], drawObjects = [];
@@ -28,7 +31,10 @@ var pelo = "textura/pelo.jpg";
 var metal = "textura/metal.JPG";
 var cesped = "textura/cesped.jpg";
 var lampara = "textura/lampara.jpg";
+<<<<<<< HEAD
 var especular =1;
+=======
+>>>>>>> origin/master
 
 window.addEventListener("load", inicializar, false);
 
@@ -110,7 +116,10 @@ function inicializar(){
 
     lightWorldPosition = [1, 8, -10];
     lightColor = [1, 1, 1, 1];
+<<<<<<< HEAD
 	encendido = [1, 1, 1, 1];
+=======
+>>>>>>> origin/master
     camera = m4.identity();
     view = m4.identity();
     viewProjection = m4.identity();
@@ -214,6 +223,7 @@ function rand(min, max) {
   return min + Math.random() * (max - min);
 }
 
+<<<<<<< HEAD
 
 //Estableciendo textura del objeto segun el indice
 function setTexturaFigura(i){
@@ -221,44 +231,75 @@ function setTexturaFigura(i){
   initial_position=positions[i];
 
   if (i==0){//plano
+=======
+function setTexturaFigura(i){
+
+  initial_position=positions[i];//esfera
+
+  if (i==0){
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
       src: chess,
     });  
+<<<<<<< HEAD
   } else if (i==1) {//cilindro
+=======
+  } else if (i==1) {
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
       src: beach,
     }); 
+<<<<<<< HEAD
   } else if (i==2) {//cubo
+=======
+  } else if (i==2) {
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
       src: cubo,
     }); 
+<<<<<<< HEAD
   } else if (i==3) {//esfera
+=======
+  } else if (i==3) {
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
       src: moon,
     }); 
+<<<<<<< HEAD
   } else if (i==4) {//toroide
+=======
+  } else if (i==4) {
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
       src: text11,
     }); 
   }
+<<<<<<< HEAD
   else if (i==5) {//piramide
+=======
+  else if (i==5) {
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
       src: pyramid,
     }); 
   }
+<<<<<<< HEAD
   else if (i==6) {//lampara
+=======
+  else if (i==6) {
+>>>>>>> origin/master
     textura = twgl.createTexture(gl, {
       min: gl.NEAREST,
       mag: gl.NEAREST,
@@ -272,7 +313,11 @@ function setTexturaFigura(i){
     u_diffuseMult: [1,1,1,1],
     u_specular: [1, 1, 1, 1],
     u_shininess: 50,
+<<<<<<< HEAD
     u_specularFactor: especular,
+=======
+    u_specularFactor: 1,
+>>>>>>> origin/master
     u_diffuse: textura,
     u_viewInverse: camera,
     u_world: m4.identity(),
@@ -302,7 +347,11 @@ function render(time) {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
   var projection = m4.perspective(30 * Math.PI / 180, gl.canvas.clientWidth / gl.canvas.clientHeight, 0.5, 100);
+<<<<<<< HEAD
   //delante atras
+=======
+  //,,delante atras
+>>>>>>> origin/master
   var eye = [];
 	  eye[0] = -1;
 	  eye[1] = 4;
@@ -363,6 +412,7 @@ function hacerVisible(elemento) {
     }
 }
 
+<<<<<<< HEAD
 //habilita o deshabilita la animacion de rotación 
 function animated(element){
   if(element.checked){
@@ -376,6 +426,16 @@ function animated(element){
 
 
 //función de animación - rotar objetos sobre cilindro
+=======
+function animate(element){
+  if(element.checked){
+    starAnimacion();    
+  } else {
+    stopAnimacion();
+  } 
+}
+
+>>>>>>> origin/master
 function starAnimacion(){
     var delta=0.01;
     animacion=true; 
@@ -387,7 +447,11 @@ function starAnimacion(){
             setTransformacion(4,mat);
             setTransformacion(5,mat);
         }
+<<<<<<< HEAD
     },30); // repeat forever, cada 100 
+=======
+    },100); // repeat forever, cada 100 
+>>>>>>> origin/master
 }
 
 function stopAnimacion (){
@@ -395,7 +459,10 @@ function stopAnimacion (){
 }
 
 var ind;
+<<<<<<< HEAD
 //Cambiando la textura seleccionada
+=======
+>>>>>>> origin/master
 function cambiartextura(indicefigura) {
 
   if(indicefigura==1){ 		
@@ -521,6 +588,7 @@ function cambiartextura(indicefigura) {
 
 
 
+<<<<<<< HEAD
 
 
 //Funcion para apagar la luz
@@ -628,3 +696,24 @@ function setSolidosFigura(i){
   pendingTransformation[i] = m4.identity();
 }
 
+=======
+function apagar(){
+
+if(lightColor==encendido){
+
+alert("apagando "+lightColor);
+alert(encendido);
+
+lightColor = [0, 0, 0, 1];
+}
+else{
+lightColor=[1, 1, 1, 1];
+
+alert("encendido "+lightColor);
+alert(encendido);
+}
+
+
+
+}
+>>>>>>> origin/master

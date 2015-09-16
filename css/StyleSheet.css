@@ -210,6 +210,7 @@ input.cmn-toggle-round:checked + label:after {
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px; 
 }
+<<<<<<< HEAD
 
 
 
@@ -409,3 +410,5 @@ padding-left:34px;
 
 
 
+=======
+>>>>>>> origin/master
