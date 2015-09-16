@@ -1,17 +1,17 @@
 # WebGL - Gráficos por computadora I
 
 
-![alt tag](https://raw.github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif)
+![alt tag](https://github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif?raw=true)
 
-[![Demo CountPages alpha](https://raw.github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif)]
+[![Demo CountPages alpha](https://github.com/Rynno/WebGL-Graficos-I-Final/blob/master/finalgraficosi.gif?raw=true)]
 
-### Operaciones:
+### OPERACIONES:
 
   - ROTACIÓN
   - TRASLACIÓN 
   - ESCALAMIENTO
 
-### Cámara:
+### CÁMARA:
 
     Zoom in
     Zoom out
